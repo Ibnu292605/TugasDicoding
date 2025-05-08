@@ -5,32 +5,33 @@ const completeBookList = document.getElementById('completeBookList');
 
 // Menyimpan buku ke local storage
 function saveBooks() {
-    const books = {
-        incompleteBooks: [],
-        completeBooks: []
-    };
+    const incompleteBooks = [];
+    const completeBooks = [];
 
     document.querySelectorAll('#incompleteBookList [data-bookid]').forEach(book => {
-        books.incompleteBooks.push({
+        incompleteBooks.push({
             id: book.getAttribute('data-bookid'),
             title: book.querySelector('[data-testid="bookItemTitle"]').innerText,
             author: book.querySelector('[data-testid="bookItemAuthor"]').innerText.replace('Penulis: ', ''),
+            // Ubah tipe data year menjadi Number
             year: Number(book.querySelector('[data-testid="bookItemYear"]').innerText.replace('Tahun: ', '')),
             isComplete: false
         });
     });
 
     document.querySelectorAll('#completeBookList [data-bookid]').forEach(book => {
-        books.completeBooks.push({
+        completeBooks.push({
             id: book.getAttribute('data-bookid'),
             title: book.querySelector('[data-testid="bookItemTitle"]').innerText,
             author: book.querySelector('[data-testid="bookItemAuthor"]').innerText.replace('Penulis: ', ''),
+            // Ubah tipe data year menjadi Number
             year: Number(book.querySelector('[data-testid="bookItemYear"]').innerText.replace('Tahun: ', '')),
             isComplete: true
         });
     });
 
-    localStorage.setItem('books', JSON.stringify(books));
+    localStorage.setItem('incompleteBooks', JSON.stringify(incompleteBooks));
+    localStorage.setItem('completeBooks', JSON.stringify(completeBooks));
 }
 
 // Menampilkan buku dari local storage
