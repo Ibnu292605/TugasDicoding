@@ -13,7 +13,6 @@ function saveBooks() {
             id: book.getAttribute('data-bookid'),
             title: book.querySelector('[data-testid="bookItemTitle"]').innerText,
             author: book.querySelector('[data-testid="bookItemAuthor"]').innerText.replace('Penulis: ', ''),
-            // Ubah tipe data year menjadi Number
             year: Number(book.querySelector('[data-testid="bookItemYear"]').innerText.replace('Tahun: ', '')),
             isComplete: false
         });
@@ -24,14 +23,18 @@ function saveBooks() {
             id: book.getAttribute('data-bookid'),
             title: book.querySelector('[data-testid="bookItemTitle"]').innerText,
             author: book.querySelector('[data-testid="bookItemAuthor"]').innerText.replace('Penulis: ', ''),
-            // Ubah tipe data year menjadi Number
             year: Number(book.querySelector('[data-testid="bookItemYear"]').innerText.replace('Tahun: ', '')),
             isComplete: true
         });
     });
 
-    localStorage.setItem('incompleteBooks', JSON.stringify(incompleteBooks));
-    localStorage.setItem('completeBooks', JSON.stringify(completeBooks));
+    // Simpan semua buku dalam satu objek
+    const books = {
+        incompleteBooks: incompleteBooks,
+        completeBooks: completeBooks
+    };
+
+    localStorage.setItem('books', JSON.stringify(books));
 }
 
 // Menampilkan buku dari local storage
